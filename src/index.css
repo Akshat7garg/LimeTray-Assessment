@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-orbit: "Orbitron", sans-serif;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
+
+.logo {
+    stroke: #008236;
+    stroke-width: 12px;
+    fill-opacity: 0;
+}
+
+.logo-loader {
+    stroke: #008236;
+    filter: drop-shadow(0 0 6px #00c950);
+    stroke-width: 9px;
+    fill-opacity: 0;
+    stroke-dasharray: 4700;
+    animation: draw 7s ease;
+    transition: stroke 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes draw {
+    0% {
+        stroke-dashoffset: 4700;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+.letter-spacing {
+    letter-spacing: 6px;
+}
+
+.letter-spacing-2 {
+    letter-spacing: 2px;
+}
+
+.sortable-item {
+    transition: transform 200ms ease, opacity 200ms ease;
+}
