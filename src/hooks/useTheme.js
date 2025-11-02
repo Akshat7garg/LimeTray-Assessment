@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 export default function useTheme() {
+
+    // Initialize theme from localStorage or default to 'dark'
     const [theme, setTheme] = useState(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme)
@@ -9,6 +11,7 @@ export default function useTheme() {
         return "dark";
     });
 
+    // Apply theme to document root and persist in localStorage
     useEffect(() => {
         const root = document.documentElement;
         root.classList.remove("light", "dark");
@@ -16,6 +19,7 @@ export default function useTheme() {
         localStorage.setItem("theme", theme);
     }, [theme]);
 
+    // Toggle between 'light' and 'dark' themes
     const toggleTheme = () => {
         setTheme((prev) => (prev === "light" ? "dark" : "light"));
     };
