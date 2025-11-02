@@ -4,6 +4,7 @@ import {
   closestCenter,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DragOverlay,
@@ -27,7 +28,17 @@ export const TaskList = () => {
   const [activeId, setActiveId] = useState(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
@@ -114,7 +125,7 @@ export const TaskList = () => {
               ))}
             </SortableContext>
 
-    
+
             <DragOverlay>
               {activeTask ? (
                 <div className="pointer-events-none overflow-hidden w-full max-w-2xl mx-auto">

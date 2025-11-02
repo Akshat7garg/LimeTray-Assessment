@@ -1,4 +1,3 @@
-"use client";
 import { useState, useRef } from "react";
 import { useTask } from "@/context/TaskContext";
 import { useToaster } from "@/context/ToasterContext";
