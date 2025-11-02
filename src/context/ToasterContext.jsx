@@ -7,6 +7,7 @@ export const ToasterProvider = ({ children }) => {
     const [toast, setToast] = useState({ message: "", type: "", visible: false });
     const timeoutRef = useRef(null);
 
+    // Function to show a toast notification
     const showToast = useCallback((message, type = "success", duration = 2500) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
@@ -28,6 +29,7 @@ export const ToasterProvider = ({ children }) => {
     );
 };
 
+// Custom hook to use ToasterContext
 export const useToaster = () => {
     const context = useContext(ToasterContext);
     if (!context) {
