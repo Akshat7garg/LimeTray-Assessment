@@ -10,6 +10,7 @@ export const TaskInput = () => {
   const { showToast } = useToaster();
   const { theme } = useThemeContext();
 
+  // Handle form submission to add a new task
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) {

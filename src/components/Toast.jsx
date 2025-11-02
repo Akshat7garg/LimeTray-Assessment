@@ -4,6 +4,7 @@ import gsap from "gsap";
 export default function Toast({ toast }) {
   const toastRef = useRef(null);
 
+  // Animation effect on toast visibility change
   useEffect(() => {
     if (toast.visible) {
       gsap.fromTo(
@@ -30,6 +31,7 @@ export default function Toast({ toast }) {
 
   if (!toast.visible) return null;
 
+  // Define color schemes based on toast type
   const colors = {
     success: "border-3 border-green-700 bg-green-200 text-green-700",
     error: "border-3 border-red-700 bg-red-200 text-red-700",

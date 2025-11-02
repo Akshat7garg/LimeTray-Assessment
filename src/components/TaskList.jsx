@@ -1,4 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
+
+// DnD Kit imports
 import {
   DndContext,
   closestCenter,
@@ -16,6 +18,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
+// Context imports
 import { useTask } from "@/context/TaskContext";
 import { useThemeContext } from "@/context/ThemeContext";
 import { SortableTaskItem } from "./SortableItem";
@@ -27,6 +30,7 @@ export const TaskList = () => {
   const [filter, setFilter] = useState("all");
   const [activeId, setActiveId] = useState(null);
 
+  // DnD Kit sensors
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -42,6 +46,7 @@ export const TaskList = () => {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
+  // Filter tasks based on current filter state
   const filteredTasks = useMemo(() => {
     switch (filter) {
       case "completed":
@@ -53,10 +58,12 @@ export const TaskList = () => {
     }
   }, [filter, tasks]);
 
+  // Get the currently active task being dragged
   const activeTask = activeId
     ? tasks.find((task) => task.id === activeId)
     : null;
 
+  // Handle drag end event to reorder tasks
   const handleDragEnd = useCallback(
     (event) => {
       const { active, over } = event;
@@ -76,12 +83,15 @@ export const TaskList = () => {
     [setTasks]
   );
 
+  // Handle filter button clicks
   const handleFilterChange = useCallback((type) => {
     setFilter(type);
   }, []);
 
   return (
     <div className="w-full mt-6">
+
+      {/* Filter Buttons */}
       <div className="flex justify-center gap-3 mb-5">
         {["all", "pending", "completed"].map((type) => (
           <button
@@ -101,6 +111,7 @@ export const TaskList = () => {
         ))}
       </div>
 
+      {/* Task List with DnD Context */}
       <div className="flex flex-col items-center w-full max-w-2xl mx-auto relative overflow-hidden px-4 pb-12">
         {filteredTasks.length > 0 ? (
           <DndContext
@@ -124,7 +135,6 @@ export const TaskList = () => {
                 </div>
               ))}
             </SortableContext>
-
 
             <DragOverlay>
               {activeTask ? (

@@ -45,7 +45,7 @@ export const Loader = () => {
                     loaderRef.current.style.display = "none";
                 },
             },
-            "-=0.3" // overlap fade with last text animation
+            "-=0.3"
         );
 
         // Cleanup SplitText instance when unmounted

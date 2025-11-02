@@ -10,11 +10,13 @@ export default function TaskItem({ task }) {
   const { theme } = useThemeContext();
 
   const itemRef = useRef(null);
+  const inputRef = useRef(null);
   const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(task.title);
 
+  // Handlers
   const handleDelete = () => {
     deleteTask(task.id);
     showToast("Task deleted", "error");
@@ -35,6 +37,14 @@ export default function TaskItem({ task }) {
     showToast(task.isDone ? "Marked incomplete" : "Task completed!", "info");
   };
 
+  // Effects
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
+
+  // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -49,6 +59,7 @@ export default function TaskItem({ task }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Sync newTitle with task title on task change
   useEffect(() => {
     setNewTitle(task.title);
   }, [task.title]);
@@ -74,6 +85,7 @@ export default function TaskItem({ task }) {
         {isEditing ? (
           <input
             type="text"
+            ref={inputRef}
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleEdit()}

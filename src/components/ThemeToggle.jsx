@@ -9,6 +9,7 @@ export const ThemeToggle = () => {
   useEffect(() => {
     if (!iconRef.current) return;
 
+    // Animation timeline
     const tl = gsap.timeline();
 
     tl.to(iconRef.current, {
@@ -35,7 +36,7 @@ export const ThemeToggle = () => {
       className='h-12 w-12 rounded-full border-3 flex items-center justify-center cursor-pointer 
         transition-all duration-300 shadow-md overflow-hidden border-green-700 bg-green-200 hover:bg-green-300'
     >
-      <span ref={iconRef} className="text-3xl select-none flex items-center justify-center">
+      <span ref={iconRef} className="text-2xl select-none flex items-center justify-center">
         {theme === "light" ? "🌙" : "☀️"}
       </span>
     </button>
